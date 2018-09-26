@@ -15,10 +15,10 @@
                         <a  href="matricula.php"><i class="fa fa-desktop"></i>Matricula</a>
                     </li>
                     <li>
-                        <a href="ui-elements.html"><i class="fa fa-desktop"></i>Mantenimiento Alumnos<span class="fa arrow"></span></a>
+                        <a href="ui-elements.html"><i class="fa fa-desktop"></i>Registro<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                             <li>
-                                <a href="nuevo_alumno.php">Nuevo Alumno</a>
+                                <a href="registrocliente.php">Cliente</a>
                             </li>
                             <li>
                                 <a href="nuevo_apoderado.php">Nuevo Apoderado</a>
