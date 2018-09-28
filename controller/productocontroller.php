@@ -15,8 +15,7 @@ class productocontroller {
     }
     
     function listar(){
-        
-       
+ 
         $this->lista =$this->dao->select();
         return $this->lista;
     }
