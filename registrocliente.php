@@ -86,25 +86,22 @@
 				</tr>
                             </thead>			
 <?php
-			require_once ($_SERVER['DOCUMENT_ROOT']."/ProyectoAquavita/DAO/PersonaDAO.php");
-                        require_once ($_SERVER['DOCUMENT_ROOT']."/ProyectoAquavita/POJOS/Persona.php");
-                        $daopersona = new PersonaDAO();
+			require_once ($_SERVER['DOCUMENT_ROOT']."/sisveterinaria/controller/clientecontroller.php");
+                        require_once ($_SERVER['DOCUMENT_ROOT']."/sisveterinaria/model/cliente.php");
+                        $controlercliente = new clientecontroller();
                         $resultado="";
 //                        if(isset($_POST['busquedacli'])){
 //                            $resultado=$_POST['busquedacli'];
 ////                            echo $resultado;
 //                        }
 			
-			$persona = new Person();
-                        foreach ($daopersona->buscar($resultado,1) as $persona) 
+			$cliente = new cliente();
+                        foreach ($controlercliente->listar() as $cliente) 
 				{					
 					echo "<tr>";
-					echo "<td>".$persona->getRucdni()."</td><td>".$persona->getNombre()." ".$persona->getApellido(),"</td><td>".$persona->getDomiciliofiscal()."</td><td>".$persona->getTelefono()."</td>";	
+					echo "<td>".$cliente->getApellidos()."</td><td>".$cliente->getNombre()." ".$cliente->getApellidos(),"</td><td>".$cliente->getDireccion()."</td><td>".$cliente->getTelf1()."</td>";	
 					echo"<td>";						
-                                        echo "<a data-toggle='modal' data-target='#editperson' data-id='" .$persona->getId()."' data-nombre='" .$persona->getNombre()."' data-apellidos='" .$persona->getApellido()."' data-domifiscal='" .$persona->getDomiciliofiscal().
-                                                "' data-domireal='" .$persona->getDomicilioreal()."' data-telf='" .$persona->getTelefono()."' data-telf1='" .$persona->getTelf1()."' data-telf2='" .$persona->getTelf2()."' data-dniruc='" .$persona->getRucdni()."' data-correo='" .$persona->getEmail().
-                                                "' data-fnac='" .$persona->getFnacimiento()."' data-clave='" .$persona->getPassword()."' class='btn btn-warning'><span class='glyphicon glyphicon-pencil'></span></a> ";	
-					echo "<a class='btn btn-danger' href='../CRUD/EliminaCliente.php?id=" .$persona->getId() ."'><span class='glyphicon glyphicon-remove'></span></a>";		
+                                       	
 					echo "</td>";
 					echo "</tr>";
 				}

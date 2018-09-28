@@ -22,6 +22,7 @@ class detalle {
     private $iddocumento;
     
     function __construct() {
+       
         
     }
     function getId() {

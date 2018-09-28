@@ -87,8 +87,6 @@ class producto {
 
     function setIdunidmed($idunidmed) {
         $this->idunidmed = $idunidmed;
-    }
-
-
+    $objto
 
 }
