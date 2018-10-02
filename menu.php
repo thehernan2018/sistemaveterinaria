@@ -20,6 +20,9 @@
                             </li>
                             <li>
                                 <a href="nuevo_producto.php">Nuevo Producto</a>
+                            </li> 
+                            <li>
+                                <a href="nueva_unidadmedida.php">Nueva Unidad de Medida</a>
                             </li>
                         
                          
@@ -29,7 +32,7 @@
                         <a href="chart.html"><i class="fa fa-bar-chart-o"></i> Listados<span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                                <li>
-                                <a href="lista_alumnos.php">Lista Alumnos</a>
+                                <a href="lista_productos.php">Lista Producos</a>
                             </li>
                              <li>
                                 <a href="lista_apoderados.php">Lista Apoderado</a>

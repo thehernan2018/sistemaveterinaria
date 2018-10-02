@@ -1,13 +1,12 @@
 
 
-	// NUEVO APODERADO
-$( "#guardarapoderado" ).submit(function( event ) {
+$( "#guarproducto" ).submit(function( event ) {
   $('#btngrabar').attr("disabled", true);
   
  var parametros = $(this).serialize();
 	 $.ajax({
 			type: "POST",
-			url: "ajax/nuevo_apoderado.php",
+			url: "ajax/insertproducto.php",
 			data: parametros,
 			 beforeSend: function(objeto){
 				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
@@ -15,22 +14,22 @@ $( "#guardarapoderado" ).submit(function( event ) {
 			success: function(datos){
 			$("#resultados_ajaxnu").html(datos);
 			$('#btngrabar').attr("disabled", false);
-			load_usu(1);
-			//alert(12);
-			$('#guardarapoderado').trigger("reset");
+	$('#guarproducto').trigger("reset");
 		  }
 	});
   event.preventDefault();
 })
+
+
 
 //GUARDAR ALUMNO
-$( "#guardaralumno" ).submit(function( event ) {
+$( "#guarunidamedida" ).submit(function( event ) {
   $('#btngrabar').attr("disabled", true);
   
  var parametros = $(this).serialize();
 	 $.ajax({
 			type: "POST",
-			url: "ajax/nuevo_alumno.php",
+			url: "ajax/insertunidadmedida.php",
 			data: parametros,
 			 beforeSend: function(objeto){
 				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
@@ -40,20 +39,44 @@ $( "#guardaralumno" ).submit(function( event ) {
 			$('#btngrabar').attr("disabled", false);
 			load_usu(1);
 			//alert(12);
-			$('#guardaralumno').trigger("reset");
+			$('#guarunidamedida').trigger("reset");
 		  }
 	});
   event.preventDefault();
 })
 
-//GUARDAR MATRICULA
-$( "#matriculaalumnos" ).submit(function( event ) {
+$('.modiunida').on('click', function(){
+  var id = $(this).attr('cod'); //aqui cogera el id 
+  console.log(id);
+$.ajax({
+                url: './ajax/buscaridunidadmedida.php',// tu url donde vas a consltar el id
+				type: 'POST',
+				dataType: 'json',
+				data: {id: id }
+    
+}).done(function(data){// data es el json q recoge 
+ //console.log(data);
+    $("#txtco").val(data.codigo);
+    $("#txtdes").val(data.descripcion);
+    $("#txtpre").val(data.precio);
+    $("#txtsto").val(data.stock);
+    $("#txtac").val(data.activo);
+    $("#txtob").val(data.observacion);
+    //$("#txtunime").val(data.id_unidad_medida);
+    $("#txtid").val(data.id_producto);
+       
+})
+})
+
+
+//GUARDAR MODICACIÓN DEL PRODUCTO
+$( "#modicaunidadmedida" ).submit(function( event ) {
   $('#btngrabar').attr("disabled", true);
   
  var parametros = $(this).serialize();
 	 $.ajax({
 			type: "POST",
-			url: "ajax/nueva_matricula.php",
+			url: "ajax/modiproducto.php",
 			data: parametros,
 			 beforeSend: function(objeto){
 				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
@@ -61,9 +84,8 @@ $( "#matriculaalumnos" ).submit(function( event ) {
 			success: function(datos){
 			$("#resultados_ajaxnu").html(datos);
 			$('#btngrabar').attr("disabled", false);
-			load_usu(1);
-			//alert(12);
-			$('#matriculaalumnos').trigger("reset");
+			
+			$('#modicaunidadmedida').trigger("reset");
 		  }
 	});
   event.preventDefault();
@@ -120,22 +142,16 @@ $( "#modiapoderado" ).submit(function( event ) {
 //ENVIAR ID A LA CAJA APODERADO
 
 $('.asignar').on('click', function(){
- var id = $(this).attr('cod'); //aqui cogera el id 
-  console.log(id);//para verrificar si lo vota xD
- //console.log(dat);//para verrificar si lo vota xD
-//aqui viene el ajax con json 
-$.ajax({
-                url: './ajax/buscaridapoderado.php',// tu url donde vas a consltar el id
-				type: 'POST',
-				dataType: 'json',
-				data: {id: id}
-}).done(function(data){// data es el json q recoge 
- //console.log(data);
-    $("#txtid").val(data.idapoderado);
-    $("#txtapode").val(data.apellidos+ ' ' +data.nombres);
-       
+    
+     var id = ($("#txtcodigo").val());
+
+     $("#codigo").val(id);
+  
 })
-})
+
+
+
+
 
 //ENVIAR ID A LA CAJA ALUMNO
 
@@ -195,28 +211,7 @@ $.ajax({
 
 /// cargar datos al modal para modificar alumno
 
-$('.modialu').on('click', function(){
- var id = $(this).attr('cod'); //aqui cogera el id 
-  console.log(id);
-$.ajax({
-                url: './ajax/buscaridalumnos.php',// tu url donde vas a consltar el id
-				type: 'POST',
-				dataType: 'json',
-				data: {id: id }
-    
-}).done(function(data){// data es el json q recoge 
- //console.log(data);
-    $("#txtape").val(data.apellidos);
-    $("#txtnom").val(data.nombres);
-    $("#txtpro").val(data.procedencia);
-    $("#txtdomi").val(data.domicilio);
-    $("#txtdni").val(data.dni);
-    $("#txtdoes").val(data.docescolar);
-    $("#txtcose").val(data.coentero);
-    $("#txtid").val(data.idalumnos);
-       
-})
-})
+
 
 /// cargar datos al modal para modificar usuarios
 

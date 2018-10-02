@@ -298,7 +298,7 @@
     
               <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
-       <script src="js/mijs.js"></script> 
+     
         
         
         <script>

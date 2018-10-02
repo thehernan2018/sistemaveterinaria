@@ -1,12 +1,12 @@
 <?php
 
-require_once ($_SERVER['DOCUMENT_ROOT']."/sistemaveterinaria-master/dao/productodao.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/sistemaveterinaria/sistemaveterinaria/dao/productodao.php");
 
 class productocontroller {
     
     private $lista;
     private $dao;
-    
+//    private $producto;
     function __construct(){
         $this->lista = array();
         $this->dao = new productodao();
@@ -20,14 +20,16 @@ class productocontroller {
         return $this->lista;
     }
     
-    function insertar($producto){
-        
+    function insertar($producto){       
     $fila =0;
         $fila = $this->dao->insertar($producto);
         return $fila;
-    }
-  
-    
+    } 
+    function modificarpro($producto){       
+    $fila =0;
+        $fila = $this->dao->actualizar($producto);
+        return $fila;
+    } 
 }
 
 

@@ -38,17 +38,16 @@
                             Registrar Productos
                         </div>
                             <div class="panel-body">
-                                 <form id="guardaralumno" name="guardaralumno" method="post" action="ajax/insertproducto.php">
+                                 <form id="guarproducto" name="guarproducto" method="post" >
                                         <div id="resultados_ajaxnu"></div>
                                      <div class="row">
                                           
                                         <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label>Codigo</label>
-                                            <?php 
+                                             <?php 
                                            
-			                                 require_once ($_SERVER['DOCUMENT_ROOT']."/sistemaveterinaria-master/controller/productocontroller.php");
-                                             require_once ($_SERVER['DOCUMENT_ROOT']."/sistemaveterinaria-master/model/producto.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/sistemaveterinaria/sistemaveterinaria/controller/productocontroller.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/sistemaveterinaria/sistemaveterinaria/model/producto.php");
                                            
                                               /*  $sql="CALL codproductos()";
                                                 $eje=mysqli_query($conexion,$sql);
@@ -63,19 +62,33 @@
                                             
                                             foreach($productocontrol->listar() as $producto){
                                                 
-                                                echo $producto->getcodigo();
-                                                echo $producto->getdescripcion();
-                                                echo $producto->getprecio();
+                                             ///   echo $producto->getcodigo();
+                                           //    echo $producto->getdescripcion();
+                                             //   echo $producto->getprecio();
                                                 
                                             }
                                             
                                             ///// insert 
                                             
                                             ?>
-                                    <input type="text" name="codigo" id="codigo" placeholder="Codigo" required class="form-control" >
-                                        </div>
+                                            
+                                            <label>Codigo</label>
+                                           
+                                            
+                                            <input type="text" name="codigo" value="" id="codigo" placeholder="Codigo" required class="form-control" >
+                                          <!-- Button trigger modal -->
+                                          <br>
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  GENERAR CODIGO DE BARRAS
+</button>
+
+
+
+                                                
+                                                </div>
                                          <div class="form-group">
                                             <label>Descripcion</label>
+                                            
                                             <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion" required class="form-control">
                                         </div>
                                     
@@ -102,18 +115,67 @@
                                         <div class="form-group">
                                             <label>Unidad de Medida</label>
                                            <select name="idunidmed" id="idunidmed" required class="form-control">
-                                            <option value="1">cnn</option>
+                                                <option value=""><-->Seleccionar<--></option></option>
+                                               <?php 
+                            require_once ($_SERVER['DOCUMENT_ROOT']."/sistemaveterinaria/sistemaveterinaria/controller/unidadmedidacontroller.php");
+                            require_once ($_SERVER['DOCUMENT_ROOT']."/sistemaveterinaria/sistemaveterinaria/model/unidadmedida.php");
+                                           
+                                                $unidadmedidacontroller = new unimeditocontroller();
+                                                $unidadmedida = new unidadmedida();
+                                                foreach($unidadmedidacontroller->listar() as $unidadmedida){
+                                               ?>
                                               
+                                            <option value=" <?php echo $unidadmedida->getId(); ?>"> <?php echo $unidadmedida->getAbreviatura(); ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>      
                                     
                                             <input type="submit" name="btngrabar" id="btngrabar" value="Grabar" class="btn btn-primary">
-                                     </div>
+                                                <br>
+                                               
+                                        </div>
                                          
                                       </div>
                                      
                                   
                                  </form>
+                                <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">GENERAR CODIGO DE BARRAS</h4>
+      </div>
+      <div class="modal-body">
+        <?php 
+                                            function rand_str($length =5){
+                                            $chars = '124567890';
+                                            $chars_length = (strlen($chars) - 1);
+                                            $string = $chars{rand(0, $chars_length)};
+                                            for ($i = 1; $i < $length; $i = strlen($string))
+                                            {
+                                            $r = $chars{rand(0, $chars_length)};
+                                            if ($r != $string{$i - 1}) $string .= $r;
+                                            }
+                                            return $string;
+                                            }
+                                         
+                                            ?>
+      
+             <br>
+            <img src="barcode.php?text=<?php echo $cod= rand_str(9); ?>&size=50&orientation=horizontal&codetype=Code39&print=true&sizefactor=1" />
+            <input type="text" name="txtcodigo" value="<?php echo $cod; ?>" id="txtcodigo" placeholder="Codigo" required class="form-control" readonly="" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary asignar" >Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+                                      
+
                             </div>
                         </div>
                      </div>
@@ -146,9 +208,15 @@
             });
            
     </script>
+    
+    <script>
+    $(function(){
+        $("#codigo").focus();
+});
+    </script>
       <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
-   
-   
+   <script src="js/mijs.js"></script>
+
 </body>
 </html>

@@ -19,6 +19,7 @@ class producto {
     private $precio;
     private $stock;
     private $idperfil;
+    private $activo;
     private $observacion;
     private $idunidmed;
     
@@ -47,6 +48,9 @@ class producto {
 
     function getIdperfil() {
         return $this->idperfil;
+    }
+    function getactivo() {
+        return $this->activo;
     }
 
     function getObservacion() {
@@ -80,6 +84,9 @@ class producto {
     function setIdperfil($idperfil) {
         $this->idperfil = $idperfil;
     }
+    function setactivo($activo) {
+        $this->activo = $activo;
+    }
 
     function setObservacion($observacion) {
         $this->observacion = $observacion;
@@ -87,6 +94,8 @@ class producto {
 
     function setIdunidmed($idunidmed) {
         $this->idunidmed = $idunidmed;
-    $objto
+    }
+
+
 
 }
