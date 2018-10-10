@@ -1,5 +1,24 @@
 
 
+$( "#guardarventas" ).submit(function( event ) {
+  $('#btngrabar').attr("disabled", true);
+  
+ var parametros = $(this).serialize();
+	 $.ajax({
+			type: "POST",
+			url: "ajax/insertnuevaventa.php",
+			data: parametros,
+			 beforeSend: function(objeto){
+				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajaxnu").html(datos);
+			$('#btngrabar').attr("disabled", false);
+	$('#guardarventas').trigger("reset");
+		  }
+	});
+  event.preventDefault();
+})
 $( "#guarproducto" ).submit(function( event ) {
   $('#btngrabar').attr("disabled", true);
   
@@ -37,8 +56,7 @@ $( "#guarunidamedida" ).submit(function( event ) {
 			success: function(datos){
 			$("#resultados_ajaxnu").html(datos);
 			$('#btngrabar').attr("disabled", false);
-			load_usu(1);
-			//alert(12);
+			
 			$('#guarunidamedida').trigger("reset");
 		  }
 	});
@@ -85,7 +103,7 @@ $( "#modicaunidadmedida" ).submit(function( event ) {
 			$("#resultados_ajaxnu").html(datos);
 			$('#btngrabar').attr("disabled", false);
 			
-			$('#modicaunidadmedida').trigger("reset");
+			
 		  }
 	});
   event.preventDefault();
@@ -106,8 +124,7 @@ $( "#modicaalumno" ).submit(function( event ) {
 			success: function(datos){
 			$("#resultados_ajaxnu").html(datos);
 			$('#btngrabar').attr("disabled", false);
-			load_usu(1);
-			//alert(12);
+			
 			$('#modicaalumno').trigger("reset");
 		  }
 	});
@@ -149,67 +166,41 @@ $('.asignar').on('click', function(){
   
 })
 
+/*$('#productoVenta').on('click', function(){
+     var id = ($("#productoVenta").val());
+    console.log(id);
+  $.ajax({
+   url: './ajax/buscaridprecios.php',
+   type: 'POST',
+   dataType: 'json',
+   data: {id: id}
+}).done(function(data){
+    $("#txtpre").val(data.precio);
+    $("#txtsto").val(data.stock);
+       
+})
+})*/
 
 
 
 
-//ENVIAR ID A LA CAJA ALUMNO
+//ENVIAR ID A LA CAJA CLIENTE   
 
-$('.asignaralum').on('click', function(){
+$('.asignarcliente').on('click', function(){
  var id = $(this).attr('cod'); //aqui cogera el id 
   console.log(id);
 $.ajax({
-                url: './ajax/buscaridalumnos.php',// tu url donde vas a consltar el id
+                url: './ajax/buscaridclientes.php',// tu url donde vas a consltar el id
 				type: 'POST',
 				dataType: 'json',
 				data: {id: id}
 }).done(function(data){// data es el json q recoge 
  //console.log(data);
-    $("#txtid").val(data.idalumnos);
-    $("#txtalum").val(data.apellidos+ ' ' +data.nombres);
-       
+    $("#txtid").val(data.id_cliente);
+    $("#txtclien").val(data.apellidos+ ' ' +data.nombre);
+    alertify.success("Cliente agragado con éxito");    
 })
 })
-
-//ENVIAR ID A LA CAJA ALUMNO PARA PAGO DE PENSION DEL MES
-
-$('.asignaralummatri').on('click', function(){
- var id = $(this).attr('cod'); //aqui cogera el id 
- var a = $(this).attr('añoes'); //aqui cogera el añoescolar
-  console.log(a);
-  console.log(id);
-$.ajax({
-                url: './ajax/buscaridalumnosmatricula.php',// tu url donde vas a consltar el id
-				type: 'POST',
-				dataType: 'json',
-				data: {id: id , a: a}
-    
-}).done(function(data){// data es el json q recoge 
- //console.log(data);
-    var dt= new Date();
-    var month = dt.getMonth()+1;        
-    
-    $("#txtid").val(data.idalumnos);
-    
-    $("#txtcosma").val(data.costomatricula);
-    if(month>=10){
-               var au = 5;
-             $("#txtpen").val(parseFloat(data.costopension)+au);
-    }else{
-        
-        $("#txtpen").val(data.costopension);
-    }
-    
-        
-    
-    $("#txtaño").val(data.añoescolar);
-    $("#txtgra").val(data.grado);
-    $("#txtalum").val(data.apellidos+ ' ' +data.nombres);
-       
-})
-})
-
-/// cargar datos al modal para modificar alumno
 
 
 
@@ -239,196 +230,6 @@ $.ajax({
        
 })
 })
-//CARGAR DATOS PARA MODIFICAR APODERADO
-
-$('.modiapoderado').on('click', function(){
- var id = $(this).attr('cod'); //aqui cogera el id 
-  console.log(id);
-$.ajax({
-                url: './ajax/buscaridapoderado.php',// tu url donde vas a consltar el id
-				type: 'POST',
-				dataType: 'json',
-				data: {id: id }
-    
-}).done(function(data){// data es el json q recoge 
- //console.log(data);
-    $("#txtape").val(data.apellidos);
-    $("#txtnom").val(data.nombres);
-    $("#txtdomi").val(data.domicilio);
-    $("#txtdni").val(data.dni);
-    $("#txtid").val(data.idapoderado);
-   
-       
-})
-})
-
-//CARGAR PENSIONES POR PAGAR
-
-$('.carpension').on('click', function(){
-    if ($("#txtid").val()=="") {
-        alert("Asigne alumno para cargar sus pensiones");
-        return;
-    }
-   
-    var id = ($("#txtid").val());
-    var ae = ($("#txtaño").val());
- //var id = $(this).attr('cod'); //aqui cogera el id 
-    //console.log(id);
-    //console.log(ae);
-    $.ajax({
-                url: './ajax/cargarpensionesporpagar.php',// tu url donde vas a consltar el id
-				type: 'POST',
-				dataType: 'json',
-				data: {id: id , ae: ae}
-    
-            }).done(function(data){// data es el json q recoge 
-        
-           if(data===null){
-               alert("No tiene Pensiónes por Pagar");
-               return(0);
-           }
-            var pagos  = data;
-          //  console.log(data);
-            $("#pensiones").children().remove();
-           
-    /*  $.each(data, function(index, data) {
-    $("#pensiones").append("<li> Pensión "+ data.mes +" <input type='checkbox'  id='"+data.mes+"' name='"+data.mes+"' > - " +data.añoescolar+"</li>");
-});*/
-    
- $.each(data, function(index, data) {
-    $("#pensiones").append("<li> Pensión "+ data.mes +" - " +data.añoescolar+"</li>");
-});
-        
-        var costo = $("#txtpen").val();
-        
-         $("#txtpepa").val(data[0].mes);
-         $("#txtadabo").val(data[0].bono1);
-        
-        var costo = $("#txtpen").val();
-        var abono = $("#txtadabo").val();
-        
-        $("#txtresta").val(parseFloat(costo)-abono+".00");
-        
-              
-          //  var vm=$(this).val(data[0].mes);
-        
-           
-         if ($("#txtadabo").val()=="") {
-          
-                console.log('ok');
-        }else{
-             $("#abonopension").prop("disabled",true);
-        }
-        
-        
-        $("#mespaga").html();
-            if ($("#txtpepa").val()=="1" ) {
-            $("#mespaga").html("Enero");
-                return;
-        }else 
-            if ($("#txtpepa").val()=="2" ) {
-            $("#mespaga").html("Febrero");
-        }else
-            if ($("#txtpepa").val()=="3" ) {
-            $("#mespaga").html("Marzo");
-        }else 
-            if ($("#txtpepa").val()=="4" ) {
-            $("#mespaga").html("Abril");
-        }else 
-            if ($("#txtpepa").val()=="5" ) {
-            $("#mespaga").html("Mayo");
-        }else 
-            if ($("#txtpepa").val()=="6" ) {
-            $("#mespaga").html("Junio");
-        }else 
-            if ($("#txtpepa").val()=="7" ) {
-            $("#mespaga").html("Julio");
-        }else 
-            if ($("#txtpepa").val()=="8" ) {
-            $("#mespaga").html("Agosto");
-        }else 
-            if ($("#txtpepa").val()=="9" ) {
-            $("#mespaga").html("Septiembre");
-        }else 
-            if ($("#txtpepa").val()=="10" ) {
-            $("#mespaga").html("Octubre");
-        }else 
-            if ($("#txtpepa").val()=="11" ) {
-            $("#mespaga").html("Noviembre");
-        }else
-            if ($("#txtpepa").val()=="12" ) {
-            $("#mespaga").html("Diciembre");
-        }
-})
-})
-
-
-// radio opciones
-
-$('#pagatodopension').on('click', function(){
-    
-   if ($("#txtid").val()=="" ) {
-        alert("Asigne alumno para cargar sus pensiones");
-        return;
-    }
-     if ($("#txtpepa").val()=="" ) {
-        alert("actualizar pensión a pagar");
-        return;
-    }
-   // alert( "clik" );
-        
-      $("#pagartodo").children().remove();
-    
-    // $("#pagartodo").append(" <hr> <input type='button' name='btngrabar' id='btngrabar' value='Pagar Todo' class='btn btn-primary'>");
-    
-})
-
-$('#abonopension').on('click', function(){
-    
-   if ($("#txtid").val()=="") {
-        alert("Asigne alumno para cargar sus pensiones");
-        return;
-    }
-         if ($("#txtpepa").val()=="" ) {
-        alert("actualizar pensión a pagar");
-        return;
-    }
-   // alert( "clik" );
-        
-      $("#pagartodo").children().remove();
-      $("#pagartodo").append("<input type='text' id='txtabo' class='form-control' name='txtabo' required placeholder='abono'>");
-    
-      //$("#pagartodo").append("<hr> <input type='button' name='btnabonar' id='btnabonar' value='Abonar' class='btn btn-primary'>");
-      //  $("#txtabo").val(data.costopension);
-     //$("#txtpen").val(data.costopension);
-    
-})
-
-///PAGO PENSIÒN
-
-$( "#pagosalumnos" ).submit(function( event ) {
-    $('#btngrabar').attr("disabled", true);
-  console.log('ok');
-
-    
- var parametros = $(this).serialize();
-	 $.ajax({
-			type: "POST",
-			url: "ajax/pagospension.php",
-			data: parametros,
-			 beforeSend: function(objeto){
-				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
-			  },
-			success: function(datos){
-			$("#resultados_ajaxnu").html(datos);
-			$('#btngrabar').attr("disabled", false);
-		
-			$('#pagosalumnos').trigger("reset");
-		  }
-	});
-  event.preventDefault();
-})
-
 ////IMPRIME COMPROBANTE
 
 function print_fac_vdt(idpago,ae,mpa,tipo){
@@ -495,28 +296,80 @@ $( "#perfil" ).submit(function( event ) {
 			}
 
 
+                $('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+                
+                
+		$('.btnAgregaVenta').click(function(){
+                    var can;
+                    can=parseFloat(prompt("Ingresar Cantidad: ",'1'));
+                    
+                    if(can<=0){
+                        alertify.error("Cantidad no Validad!");
+                    return;
+                    }
+                    if(isNaN(can)){
+                        alertify.error("Solo Numeros!");
+                    return;
+                    }
+                     if ($("#txtid").val()=="" ) {
+                    alertify.error("Primero Seleccione el cliente para llenar el Carrito de Compras.!");
+                    return;
+                        }
+			 var id = $(this).attr('cod');
+			 var pre = $(this).attr('pre');
+                         console.log(id);
+                         console.log(pre);
+                         console.log(can);
+		
+			$.ajax({
+				type:"POST",
+				data:{id: id , pre: pre , can: can},
+				url:"classes/agregaProductoTemp.php",
+				success:function(r){
+					$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+                                        alertify.success("Agregado al Carrito!");
+				}
+			});
+		});
+                
+                
+                $('#btnVaciarVentas').click(function(){
 
-
-
-
-$( "#guardarestado" ).submit(function( event ) {
-  $('#btngrabar').attr("disabled", true);
-  
- var parametros = $(this).serialize();
-	 $.ajax({
-			type: "POST",
-			url: "ajax/grabaestadoalumno.php",
-			data: parametros,
-			 beforeSend: function(objeto){
-				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
-			  },
-			success: function(datos){
-			$("#resultados_ajaxnu").html(datos);
-			$('#btngrabar').attr("disabled", false);
-			load_usu(1);
-			//alert(12);
-			$('#guardarestado').trigger("reset");
-		  }
+		$.ajax({
+			url:"ventas/vaciarTemp.php",
+			success:function(r){
+				$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+                                alertify.warning("Carrito Vacio");
+			}
+		});
 	});
-  event.preventDefault();
+        
+        function quitarP(index){
+		$.ajax({
+			type:"POST",
+			data:"ind=" + index,
+			url:"ventas/quitarproducto.php",
+			success:function(r){
+				$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+				alertify.success("Se quito el producto");
+			}
+		});
+	}
+        
+        $('#pagatodopension').on('click', function(){   
+         $("#factura").children().remove();
+            })
+        
+        $('#abonopension').on('click', function(){
+    
+ 
+      $("#factura").children().remove();
+      $("#factura").append("<input type='text' id='txtruc'  name='txtruc' class='form-control' required placeholder='Ruc'><br>");
+      $("#factura").append("<input type='text' id='txtrz'  name='txtrz' class='form-control' required placeholder='Razón Social'><br>");
+      $("#factura").append("<input type='text' id='txtdir'  name='txtdir' class='form-control' required placeholder='Dirección'>");
+    
+      //$("#pagartodo").append("<hr> <input type='button' name='btnabonar' id='btnabonar' value='Abonar' class='btn btn-primary'>");
+      //  $("#txtabo").val(data.costopension);
+     //$("#txtpen").val(data.costopension);
+    
 })

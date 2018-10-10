@@ -29,6 +29,17 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="ui-elements.html"><i class="fa fa-desktop"></i>Ventas<span class="fa arrow"></span></a>
+                           <ul class="nav nav-second-level">
+                            <li>
+                                <a href="Nuevaventa.php"><span class="glyphicon glyphicon-tag" aria-hidden="true"> Producto</span></a>
+                            </li>
+                           
+                        
+                         
+                        </ul>
+                    </li>
+                    <li>
                         <a href="chart.html"><i class="fa fa-bar-chart-o"></i> Listados<span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                                <li>
