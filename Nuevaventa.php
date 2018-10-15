@@ -34,7 +34,9 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Realizar Venta
+                            Realizar Venta  <button type="button" class="btn btn-info recarg"><span class="glyphicon glyphicon-certificate" aria-hidden="true"></span>Nueva Venta</button>
+                      
+                        
                         </div>
                             <div class="panel-body">
                                  <form id="guardarventas" name="guardarventas" method="post">
@@ -43,7 +45,7 @@
                                           <div class="col-lg-12">
                                                <div class="form-group">
                                             <label>Buscar Cliente</label>
-                                            <input type="hidden" id="txtid" name="txtid"  class="form-control">
+                                            <input type="hidden"    id="txtid" name="txtid"  class="form-control">
                                             <input type="text" name="txtclien" id="txtclien" readonly placeholder="Datos Cliente" required class="form-control input-sm ">
                                                 <br>
                                          <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">
@@ -53,8 +55,10 @@
                                        <span class="glyphicon glyphicon-search" aria-hidden="true"> Agregar Productos <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></span>
                                    </button>   
                                         <span class="btn btn-danger" id="btnVaciarVentas"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Vaciar Carrito</span>
-                                       <button type="button" class="btn btn-info recarg"><span class="glyphicon glyphicon-certificate" aria-hidden="true"></span>Nueva Venta</button>
-                                        <input type="submit" name="btngrabar" id="btngrabar" value="Guardar Venta" class="btn btn-primary ">
+                                   
+                                              <input type="submit" name="btngrabar" id="btngrabar" value="Guardar Venta" class="btn btn-primary ">
+                                        
+                                       
                      <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg tamano">
                             <div class="modal-content">
@@ -179,6 +183,7 @@
         <script src="librerias/alertifyjs/alertify.js"></script>
     <script src="assets/js/custom-scripts.js"></script>
      <script src="js/mijs.js"></script> 
+       <script src="js/VentanaCentrada.js"></script>
 
 </body>
 </html>

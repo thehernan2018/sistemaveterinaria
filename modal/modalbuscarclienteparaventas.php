@@ -14,6 +14,8 @@
                                             <th>Apellidos</th>
                                             <th>Nombres</th>
                                             <th>Telefonos</th>
+                                            <th>Ruc</th>
+                                            <th>DNI</th>
                                             <th>Dirección</th>
                                             <th>Email</th>
                                             <th>+</th>
@@ -35,6 +37,8 @@
                                             <td><?php echo $row['apellidos']; ?></td>
                                             <td><?php echo $row['nombre']; ?></td>
                                             <td class="center"><?php echo $row['telf1'].' / '.$row['telf2']; ?></td>
+                                            <td class="center"><?php echo $row['ruc']; ?></td>
+                                            <td class="center"><?php echo $row['dni']; ?></td>
                                             <td class="center"><?php echo $row['direccion']; ?></td>
                                             <td class="center"><?php echo $row['email']; ?></td>
                                             <td class="center"><button  cod='<?php echo $row['id_cliente'];?>' class="btn btn-success asignarcliente" type="button" >+</button></td>

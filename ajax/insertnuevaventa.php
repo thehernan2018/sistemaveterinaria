@@ -3,10 +3,10 @@ session_start();
 //print_r($_POST);
 
 date_default_timezone_set('America/Lima');
-		if (empty($_POST['txtid'])  || empty($_POST['tipomovi']) || empty($_POST['txtidpro']) || empty($_POST['txtin']) || empty($_POST['txtigv']) || empty($_POST['txttot']) || empty($_POST['txtcan']) ){ 
+		if (empty($_POST['txtid'])  || empty($_POST['tipomovi']) || empty($_POST['txtidpro']) || empty($_POST['txtin']) ||  empty($_POST['txttot']) ){ 
 			$errors[] = "Verifique Datos";
 		}  elseif (
-			!empty($_POST['txtid']) && !empty($_POST['tipomovi']) && !empty($_POST['txtidpro']) && !empty($_POST['txtin'])&& !empty($_POST['txtigv']) && !empty($_POST['txttot']) && !empty($_POST['txtcan']) 
+			!empty($_POST['txtid']) && !empty($_POST['tipomovi']) && !empty($_POST['txtidpro']) && !empty($_POST['txtin']) && !empty($_POST['txttot']) 
         ) {
             require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 			require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
@@ -42,8 +42,17 @@ date_default_timezone_set('America/Lima');
                                   $sqld="INSERT INTO detalle(id_producto,precio,cantidad,id_documento) "
                                   . "VALUES ('".$pro."', '".$_POST['txtpre'][$key]."', '".$_POST['txtcan'][$key]."',$last_id)";
                                   $query_new_detalle_insert = mysqli_query($conexion,$sqld);
+                                  
+                                  $stock="SELECT stock FROM producto where id_producto='".$pro."'";
+                                  $ecu= mysqli_query($conexion, $stock);
+                                  $fi=mysqli_fetch_assoc($ecu);
+                                  $st_ac=$fi['stock'];
+                                  $stockActulizado=$st_ac-$_POST['txtcan'][$key];
+                                  $modistock="UPDATE producto SET stock = '".$stockActulizado."' WHERE id_producto = '".$pro."';";
+                                  $ejecute=-mysqli_query($conexion, $modistock);
                                   unset($_SESSION['tablaComprasTemp']);
-    
+                                   
+                                  
                                   }
                                     
                    }
@@ -61,6 +70,14 @@ date_default_timezone_set('America/Lima');
                                   $sqld="INSERT INTO detalle(id_producto,precio,cantidad,id_documento) "
                                   . "VALUES ('".$pro."', '".$_POST['txtpre'][$key]."', '".$_POST['txtcan'][$key]."',$last_id)";
                                   $query_new_detalle_insert = mysqli_query($conexion,$sqld);
+                                  
+                                   $stock="SELECT stock FROM producto where id_producto='".$pro."'";
+                                  $ecu= mysqli_query($conexion, $stock);
+                                  $fi=mysqli_fetch_assoc($ecu);
+                                  $st_ac=$fi['stock'];
+                                  $stockActulizado=$st_ac-$_POST['txtcan'][$key];
+                                  $modistock="UPDATE producto SET `stock` = '".$stockActulizado."' WHERE id_producto = '".$pro."';";
+                                  $ejecute=-mysqli_query($conexion, $modistock);
                                   unset($_SESSION['tablaComprasTemp']);
     
                                   }
@@ -83,6 +100,8 @@ date_default_timezone_set('America/Lima');
 			?>
 			<div class="alert alert-danger" role="alert">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+                                
+                        
 					<strong>Error!</strong> 
 					<?php
 						foreach ($errors as $error) {
@@ -92,11 +111,18 @@ date_default_timezone_set('America/Lima');
 			</div>
 			<?php
 			}
+                         if($tcomprobate==1){
+                                
+                         
 			if (isset($messages)){
+                           
 				
 				?>
 				<div class="alert alert-success" role="alert">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+                                 
+                    Imprimir Boleta<a href="#" class="btn btn-success btn-lg"  title='Imprimir Boleta' 
+         onclick="print_fac_vdt('<?php echo $id;?>','<?php echo $in;?>','<?php echo $igv;?>','<?php echo $to;?>','<?php echo $last_id;?>','<?php echo $tcomprobate; ?>');"><i class="glyphicon glyphicon-print"></i></a>
 						<strong>¡Bien hecho!</strong>
 						<?php
 							foreach ($messages as $message) {
@@ -104,7 +130,26 @@ date_default_timezone_set('America/Lima');
 								}
 							?>
 				</div>
-				<?php
-			}
-
+<?php
+    }   }else{
+        
 ?>
+<?php
+if (isset($messages)){
+                           
+				
+				?>
+				<div class="alert alert-success" role="alert">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+                                 
+                    Imprimir Factura<a href="#" class="btn btn-success btn-lg"  title='Imprimir Factura' 
+         onclick="print_fac_vdt2('<?php echo $id;?>','<?php echo $in;?>','<?php echo $igv;?>','<?php echo $to;?>','<?php echo $last_id;?>','<?php echo $tcomprobate; ?>','<?php echo $ruc; ?>','<?php echo $rz; ?>','<?php echo $dir; ?>');"><i class="glyphicon glyphicon-print"></i></a>
+						<strong>¡Bien hecho!</strong>
+						<?php
+							foreach ($messages as $message) {
+									echo $message;
+								}
+							?>
+				</div>
+
+    <?php } }?>

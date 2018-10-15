@@ -232,9 +232,13 @@ $.ajax({
 })
 ////IMPRIME COMPROBANTE
 
-function print_fac_vdt(idpago,ae,mpa,tipo){
-VentanaCentrada('./pdf/documentos/ver_boletadeventa.php?idpagoalu='+idpago+"&aes="+ae+"&mpago="+mpa+"&tipo="+tipo);
+function print_fac_vdt(idcliente,ine,igv,total,idventa,tcom){
+VentanaCentrada('./pdf/documentos/ver_boletadeventa.php?idcliente='+idcliente+"&ine="+ine+"&igv="+igv+"&total="+total+"&idventa="+idventa+"&tcom="+tcom);
 		}
+                
+function print_fac_vdt2(idcliente,ine,igv,total,idventa,tcom,ruc,rz,dir){
+VentanaCentrada('./pdf/documentos/factura_pdf.php?idcliente='+idcliente+"&ine="+ine+"&igv="+igv+"&total="+total+"&idventa="+idventa+"&tcom="+tcom+"&ruc="+ruc+"&rz="+rz+"&dir="+dir);
+		}                            
 
 //////////////////////perfil
 
@@ -300,6 +304,8 @@ $( "#perfil" ).submit(function( event ) {
                 
                 
 		$('.btnAgregaVenta').click(function(){
+                     
+                    
                     var can;
                     can=parseFloat(prompt("Ingresar Cantidad: ",'1'));
                     
@@ -317,9 +323,17 @@ $( "#perfil" ).submit(function( event ) {
                         }
 			 var id = $(this).attr('cod');
 			 var pre = $(this).attr('pre');
+                         var stck = $(this).attr('st');
                          console.log(id);
                          console.log(pre);
                          console.log(can);
+                         console.log(stck);
+                         
+                         if(can>stck){
+                            alertify.error("Candidad no permitidad Debe ser igual o menor al STOCK.!");
+                            return; 
+                         }
+                      
 		
 			$.ajax({
 				type:"POST",

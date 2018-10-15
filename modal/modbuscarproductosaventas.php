@@ -14,8 +14,8 @@
                                             <th>Descripción</th>
                                             <th>Precio</th>
                                             <th>Stock</th>
+                                            <th> Observación</th>
                                             <th>CB</th>
-                                            <th>Observación</th>
                                            
                                             <th>+</th>
                                         </tr>
@@ -39,7 +39,7 @@
                                             <td class="center"><?php echo $row['observacion']; ?></td>
                                             <td class="center"><?php echo $row['codigo']; ?></td>
                                            
-                                            <td class="center"><button  cod='<?php echo $row['id_producto'];?>' pre='<?php echo $row['precio'];?>'  class="btn btn-success btnAgregaVenta" type="button" >+</button></td>
+                                            <td class="center"><button  cod='<?php echo $row['id_producto'];?>' pre='<?php echo $row['precio'];?>' st='<?php echo $row['stock'];?>'  class="btn btn-success btnAgregaVenta" type="button" >+</button></td>
                                         </tr>
                                     <?php }  ?>
                                     </tbody>

@@ -48,7 +48,7 @@
 
  <?php 
  		$total=$total + $d[2]*$d[1];
-                $in=round($total/1.18);
+                $in=number_format($total/1.18);
  		$i++;
                 $totigv=$total-$in;
                 $totalapagar=$totigv+$in;
