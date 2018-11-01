@@ -1,3 +1,24 @@
+$( "#guardacliente" ).submit(function( event ) {
+  $('#btngrabar').attr("disabled", true);
+  
+ var parametros = $(this).serialize();
+	 $.ajax({
+			type: "POST",
+			url: "ajax/nuevo_cliente.php",
+			data: parametros,
+			 beforeSend: function(objeto){
+				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajaxnu").html(datos);
+			$('#btngrabar').attr("disabled", false);
+			
+			$('#guardacliente').trigger("reset");
+		  }
+	});
+  event.preventDefault();
+})
+
 
 
 $( "#guardarventas" ).submit(function( event ) {
@@ -131,28 +152,6 @@ $( "#modicaalumno" ).submit(function( event ) {
   event.preventDefault();
 })
 
-//GUARDAR DATOS APODERAMOS MODIFICADOS
-$( "#modiapoderado" ).submit(function( event ) {
-  $('#btngrabar').attr("disabled", true);
-  
- var parametros = $(this).serialize();
-	 $.ajax({
-			type: "POST",
-			url: "ajax/modiapoderado.php",
-			data: parametros,
-			 beforeSend: function(objeto){
-				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
-			  },
-			success: function(datos){
-			$("#resultados_ajaxnu").html(datos);
-			$('#btngrabar').attr("disabled", false);
-			load_usu(1);
-			//alert(12);
-			$('#modiapoderado').trigger("reset");
-		  }
-	});
-  event.preventDefault();
-})
 
 
     
@@ -387,3 +386,223 @@ $( "#perfil" ).submit(function( event ) {
      //$("#txtpen").val(data.costopension);
     
 })
+
+$( "#guardarmascota" ).submit(function( event ) {
+    $('#btngrabar').attr("disabled", true);
+
+ var parametros = new FormData($(this)[0]);
+ 
+	 $.ajax({
+			type: "POST",
+			url: "ajax/nuevo_mascota.php",
+			data: parametros,
+			cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST',
+			 beforeSend: function(objeto){
+				$("#resultados_ajax").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajax").html(datos);
+			$('#btngrabar').attr("disabled", false);
+			$('#guardarmascota').trigger("reset");
+		  }
+	});
+  event.preventDefault();
+  return false;
+});
+
+$('.asignarcli').on('click', function(){
+ var id = $(this).attr('cod'); 
+  console.log(id);
+ 
+$.ajax({
+                url: './ajax/buscaridclientes.php',
+				type: 'POST',
+				dataType: 'json',
+				data: {id: id}
+}).done(function(data){
+    $("#txtid").val(data.id_cliente);
+    $("#txtclie").val(data.apellidos+ ' ' +data.nombre);
+        alertify.success("Cliente agragado con éxito"); 
+});
+})
+
+$('.mismasco').on('click', function(){
+ var id = $(this).attr('cod'); 
+  console.log(id);
+ 
+$.ajax({
+                url: './ajax/buscarmismascotas.php',
+				type: 'POST',
+				dataType: 'json',
+				data: {id: id}
+}).done(function(data){
+    $("#txtid").val(data.id_mascota);
+    $("#txtclie").val(data.nombre);
+    $("#txtclie").val(data.especie);
+    $("#txtclie").val(data.raza);
+    $("#txtclie").val(data.sexo);
+    $("#txtclie").val(data.pelaje);
+    $("#txtclie").val(data.f_nac);
+    $("#txtclie").val(data.fallecido);
+    $("#txtclie").val(data.foto);
+    $("#txtclie").val(data.codigodvi);
+         
+});
+})
+
+$('.modicliente').on('click', function(){
+ var id = $(this).attr('cod'); 
+  console.log(id);
+ 
+$.ajax({
+                url: './ajax/buscaridclientes.php',
+				type: 'POST',
+				dataType: 'json',
+				data: {id: id}
+}).done(function(data){
+    $("#txtid").val(data.id_cliente);
+    $("#txtnom").val(data.nombre);
+    $("#txtape").val(data.apellidos);
+    $("#txtdomi").val(data.direccion);
+    $("#txtt1").val(data.telf1);
+    $("#txtt2").val(data.telf2);
+    $("#txtruc").val(data.ruc);
+    $("#txtdni").val(data.dni);
+    $("#txtema").val(data.email);
+    $("#txtpw").val(data.paginaweb);
+         
+});
+})
+
+$( "#modcliente" ).submit(function( event ) {
+  $('#btngrabar').attr("disabled", true);
+  
+ var parametros = $(this).serialize();
+	 $.ajax({
+			type: "POST",
+			url: "ajax/modidicliente.php",
+			data: parametros,
+			 beforeSend: function(objeto){
+				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajaxnu").html(datos);
+			$('#btngrabar').attr("disabled", false);
+                      
+		  }
+	});
+  event.preventDefault();
+})
+
+$('.momascota').on('click', function(){
+ var id = $(this).attr('cod'); 
+  console.log(id);
+ 
+$.ajax({
+                url: './ajax/buscarmismascotas.php',
+				type: 'POST',
+				dataType: 'json',
+				data: {id: id}
+}).done(function(data){
+    $("#txtid").val(data.id_mascota);
+    $("#txtnom").val(data.nombre);
+    $("#txtes").val(data.especie);
+    $("#txtra").val(data.raza);
+    $("#txtse").val(data.sexo);
+    $("#txtpe").val(data.pelaje);
+    $("#txtfn").val(data.f_nac);
+    $("#txtfa").val(data.fallecido);
+    $("#txtex").val(data.extraviado);
+    //$("#txtfoto").val(data.foto);
+    $("#txtco").val(data.codigodvi);
+         
+});
+})
+
+$( "#guardahistorial" ).submit(function( event ) {
+  $('#btngrabar').attr("disabled", true);
+  
+ var parametros = $(this).serialize();
+	 $.ajax({
+			type: "POST",
+			url: "ajax/nuevo_historial.php",
+			data: parametros,
+			 beforeSend: function(objeto){
+				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajaxnu").html(datos);
+			$('#btngrabar').attr("disabled", false);
+			
+			$('#guardahistorial').trigger("reset");
+		  }
+	});
+  event.preventDefault();
+})
+
+
+$( "#guardacita" ).submit(function( event ) {
+  $('#btngrabar').attr("disabled", true);
+  
+ var parametros = $(this).serialize();
+	 $.ajax({
+			type: "POST",
+			url: "ajax/nuevo_cita.php",
+			data: parametros,
+			 beforeSend: function(objeto){
+				$("#resultados_ajaxnu").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajaxnu").html(datos);
+			$('#btngrabar').attr("disabled", false);
+			
+			$('#guardacita').trigger("reset");
+		  }
+	});
+  event.preventDefault();
+})
+
+$('.asignarmasc').on('click', function(){
+ var id = $(this).attr('cod'); 
+ console.log(id);
+ 
+$.ajax({
+                url: './ajax/buscaridmascotas.php',
+				type: 'POST',
+				dataType: 'json',
+				data: {id: id}
+}).done(function(data){
+    $("#txtid").val(data.id_mascota);
+    $("#txtmasc").val(data.nombre+ ' - ' +data.especie+' - '+data.raza);
+    alertify.success("Cliente agragado con éxito");
+});
+})
+
+$( "#modimascota" ).submit(function( event ) {
+    $('#btngrabar').attr("disabled", true);
+
+ var parametros = new FormData($(this)[0]);
+ 
+	 $.ajax({
+			type: "POST",
+			url: "ajax/modimascota.php",
+			data: parametros,
+			cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST',
+			 beforeSend: function(objeto){
+				$("#resultados_ajax").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajax").html(datos);
+			$('#btngrabar').attr("disabled", false);
+			
+		  }
+	});
+  event.preventDefault();
+  return false;
+});

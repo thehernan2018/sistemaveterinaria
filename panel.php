@@ -74,61 +74,67 @@ if($es==1){
 
                 <div class="row">
                   
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-green">
-                            <div class="panel-body">
-                                <i class="fa fa-bar-chart-o fa-5x"></i>
-                                <h3><?php $año= date('Y');
-                                    $sql="SELECT count(*)as num  FROM t_usuario ";
-                                    $ejecute=mysqli_query($conexion,$sql);
-                                    $row=mysqli_fetch_assoc($ejecute);
-                                    echo $row['num'];
-                                ?>
-</h3>
+                   <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Citas por atender
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Fecha</th>
+                                            <th>nota</th>
+                                            <th>asunto</th>                               
+                                            <th>Dueño</th>
+                                            <th>Atender</th>
+                                            <th>Mis Mascotas</th>
+                                         
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                            require_once ("config/db.php");
+			                                require_once ("config/conexion.php");
+                                        $s=1;
+                                        $sql="SELECT * FROM cita c inner join cliente cl on c.id_cliente=cl.id_cliente order by c.fecha;";
+                                        $execute=mysqli_query($conexion,$sql);
+                                        while($row= mysqli_fetch_row($execute)){
+                                            
+                                        
+                                        ?>
+                                        <tr class="odd gradeX">
+                                            <td><?php $i=$s++; echo $i; ?></td>
+                                            <td><?php echo $row[2]; ?></td>
+                                            <td><?php echo $row[3]; ?></td>
+                                            <td><?php echo $row[4]; ?></td>
+                                           
+                                           
+                                            <td class="center"><?php echo $row[6].' - ' .$row[7]; ?></td>
+                                            <td>
+                                                  <a href="modmismacotas.php?cod=<?php echo $row[1]; ?> & nom=<?php echo $row[6].' '.$row[7];?>" <button type="button" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                                                
+                                            </td>
+                                            <td class="center">
+                                               
+                                                 <a href="modmismacotas.php?cod=<?php echo $row[1]; ?> & nom=<?php echo $row[6].' '.$row[7];?>" <button type="button" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                            </td>
+                                           
+                                        </tr>
+                                    <?php } mysqli_close($conexion); ?>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="panel-footer back-footer-green">
-                                
-                                <?php echo 'Uauarios '; ?>
-
-                            </div>
+                            
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-blue">
-                            <div class="panel-body">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
-                                <h3>52,160 </h3>
-                            </div>
-                            <div class="panel-footer back-footer-blue">
-                                Sales
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-red">
-                            <div class="panel-body">
-                                <i class="fa fa fa-comments fa-5x"></i>
-                                <h3>15,823 </h3>
-                            </div>
-                            <div class="panel-footer back-footer-red">
-                                Comments
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-brown">
-                            <div class="panel-body">
-                                <i class="fa fa-users fa-5x"></i>
-                                <h3>36,752 </h3>
-                            </div>
-                            <div class="panel-footer back-footer-brown">
-                                No. of Visits
-
-                            </div>
-                        </div>
-                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+                   
+                  
                 </div>
 
 
@@ -150,15 +156,25 @@ if($es==1){
     <!-- JS Scripts-->
     <!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
-    <!-- Bootstrap Js -->
+      <!-- Bootstrap Js -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-    <!-- Morris Chart Js -->
-    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="assets/js/morris/morris.js"></script>
-    <!-- Custom Js -->
+      <!-- DATA TABLE SCRIPTS -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+              $('#dataTables-example').dataTable({
+                    'language': español
+                });
+            });
+    </script>
+      <!-- Custom Js -->
+    
     <script src="assets/js/custom-scripts.js"></script>
+    
+    <script src="js/mijs.js"></script> 
 
 
 </body>

@@ -13,10 +13,13 @@
                     </li>  
                   
                     <li>
-                        <a href="ui-elements.html"><i class="fa fa-desktop"></i>Registro<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-desktop"></i>Registro<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                             <li>
-                                <a href="registrocliente.php">Cliente</a>
+                                <a href="nuevo_cliente.php">Cliente</a>
+                            </li>
+                             <li>
+                                <a href="nuevo_mascota.php">Asignar Mascotas</a>
                             </li>
                             <li>
                                 <a href="nuevo_producto.php">Nuevo Producto</a>
@@ -29,7 +32,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="ui-elements.html"><i class="fa fa-desktop"></i>Ventas<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-desktop"></i>Ventas<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                             <li>
                                 <a href="Nuevaventa.php"><span class="glyphicon glyphicon-tag" aria-hidden="true"> Producto</span></a>
@@ -38,23 +41,41 @@
                         
                          
                         </ul>
-                    </li>
+                    </li><li>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i> Citas<span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                              <li>
+                                <a href="nuevo_cita.php"> Nueva Cita</a>
+                            </li>
+                          </ul>
+                    </li>     
+                    
+					<li>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i> Historial<span class="fa arrow"></span></a>
+                     <ul class="nav nav-second-level">
+                              <li>
+                                <a href="nuevo_historial.php"> Historial Nuevo</a>
+                            </li>
+                          </ul>
+                    </li>  
+                    
                     <li>
-                        <a href="chart.html"><i class="fa fa-bar-chart-o"></i> Listados<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i> Listados<span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                                <li>
                                 <a href="lista_productos.php">Lista Producos</a>
                             </li>
                              <li>
-                                <a href="lista_apoderados.php">Lista Apoderado</a>
+                                <a href="lista_clientes.php">Lista Clientes</a>
                             </li>
-                             <li>
-                                <a href="lista_alumatricula.php">Lista Alumnos Matriculados</a>
-                            </li>
+
+                            <li>
+                                <a href="lista_mascotas.php">Todas las Mascotas</a>
+                            </li>                            
                           </ul>
                     </li>     
-                    <li>
-                        <a href="chart.html"><i class="fa fa-bar-chart-o"></i> Reportes<span class="fa arrow"></span></a>
+                   <!-- <li>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i> Reportes<span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                                 <li>
                                 <a href="reportetotalfinal.php">Reporte total</a>
@@ -67,24 +88,10 @@
                             </li>
                           </ul>
                     </li>
-					<li>
-                        <a href="chart.html"><i class="fa fa-bar-chart-o"></i> Pagos<span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="matricula.php">Matricula</a>
-                            </li>
-                             <li>
-                                <a href="pagopension.php">Pensión</a>
-                            </li>
-                            <li>
-                                <a href="#">Otros Pagos</a>
-                            </li>
-                          </ul>
-                    </li>
-                    
+			-->		
                     
                     <li>
-                        <a href="tab-panel.html"><i class="fa fa-qrcode"></i> Mantenimiento de Usuarios <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-qrcode"></i> Mantenimiento de Usuarios <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">Usuario Nuevo</a>
@@ -96,7 +103,7 @@
                     </li>
                     
                        <li>
-                        <a href="tab-panel.html"><i class="glyphicon glyphicon-cog"></i> Configurar<span class="fa arrow"></span></a>
+                        <a href="#"><i class="glyphicon glyphicon-cog"></i> Configurar<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="confiperfil.php">Perfil</a>
